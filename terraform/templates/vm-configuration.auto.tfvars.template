@@ -1,0 +1,53 @@
+# Resource configuration options for main.tf
+proxmox_host                    = "pve"             # Default: pve
+proxmox_host_storage_pool1_name = "local-zfs"       # Default: local-lvm
+proxmox_host_storage_pool2_name = "local-zfs"       # Default: null - proxmox-testing
+template_name = "ubuntu-oracular" # Default: null
+
+# Telmate Proxmox Provider Reference Documentation: https://registry.terraform.io/providers/Telmate/proxmox/latest/docs/resources/vm_qemu
+# Number of VMs to create
+# Applying a count of 0 will destroy all VMs
+vm_count                    = 1                    # Default: 1
+vm_id_start                 = 100                  # Default: 100
+vm_name                     = "ubuntu-server"      # Default: ubuntu-server
+vm_bios                     = "ovmf"               # Default: ovmf
+vm_bootdisk                 = "scsi0"              # Default scsi0
+vm_qemu_guest_agent_enabled = 1                    # Default: 1
+vm_full_clone               = true                 # Default: true
+vm_memory_max               = 2048                 # Default: 2048
+vm_memory_min               = 512                  # Default: null = Memory ballooning disabled
+vm_cpu_cores                = 2                    # Default: 1
+vm_cpu_type                 = "host"               # Default: host
+vm_scsihw                   = "virtio-scsi-single" # Default: lsi
+vm_tags                     = "oracular,ubuntu"    # Default: null
+vm_os_type                  = "cloud-init"         # Default: cloud-init
+
+vm_cloud_init_upgrade = true # Default: false
+cloud_init_user = {
+  "name"        = "",                     # Default: ubuntu
+  "password"    = "",                     # Default: null
+  "ssh_key"     = "",                     # Default: null
+  "ssh_keyfile" = "~/.ssh/id_ed25519.pub" # Default: null
+}
+
+vm_ipv4_address_prefix  = "192.168.1.10"  # Default: null
+vm_ipv4_address_cidr    = "24"            # Default: null
+vm_ipv4_address_gateway = "192.168.1.1"   # Default: null
+
+vm_cloud_init_disk = {
+  "type"    = "cloudinit", # Default: cloudinit
+  "slot"    = "ide2",      # Default: ide2
+  "storage" = "local-zfs"  # Default: local-lvm
+}
+
+vm_primary_disk = {
+  "type"       = "disk",      # Default: disk
+  "slot"       = "scsi0",     # Default: scsi0
+  "storage"    = "local-zfs", # Default: local-lvm
+  "size"       = "35G",       # Default: 35G
+  "discard"    = true,        # Default: false
+  "emulatessd" = true,        # Default: false
+  "iothread"   = true,        # Default: true
+  "cache"      = "writeback", # Default: writeback
+  "replicate"  = true         # Default: false
+}
