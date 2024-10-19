@@ -36,3 +36,19 @@ delete:
 	cd terraform && \
 	terraform workspace select default && \
 	terraform workspace delete $(workspace)
+
+.PHONY: docker-init
+docker-init:
+	docker run --rm -v ${PWD}/terraform:/workspace -w /workspace hashicorp/terraform:latest init
+
+.PHONY: docker-plan
+docker-plan:
+	docker run --rm -v ${PWD}/terraform:/workspace -v ~/.ssh:/root/.ssh -w /workspace hashicorp/terraform:latest plan
+
+.PHONY: docker-apply
+docker-apply:
+	docker run --rm -v ${PWD}/terraform:/workspace -v ~/.ssh:/root/.ssh -w /workspace hashicorp/terraform:latest apply -auto-approve
+
+.PHONY: docker-destroy
+docker-destroy:
+	docker run --rm -v ${PWD}/terraform:/workspace -v ~/.ssh:/root/.ssh -w /workspace hashicorp/terraform:latest destroy -auto-approve

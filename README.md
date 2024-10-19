@@ -1,6 +1,6 @@
 # Proxmox - Terraform
 
-Terraform playbook for automating the provisioning of Ubuntu server virtual machines on Proxmox.
+Terraform playbook for automating the provisioning of Ubuntu Server Cloud-Init virtual machines on Proxmox.
 
 ## Usage
 
@@ -120,29 +120,57 @@ The [Proxmox wiki](https://pve.proxmox.com/wiki/Cloud-Init_Support) details the 
 
 ### Running Terraform
 
+#### <ins>Without Docker</ins>
+
 - Create a Terraform workspace specific to your environment:
 
-```console
-workspace='testing' make new
-```
+  ```console
+  workspace='testing' make new
+  ```
 
 - If you have pre-existing VMs that you wish to manage using Terraform, then you can use the following command to import a VM QEMU Resource:
 
-> Run from within the `terraform` directory
+  > Run from within the `terraform` directory
 
-```console
-terraform import [options] [node]/[type]/[vmId]
-```
+  ```console
+  terraform import [options] [node]/[type]/[vmId]
+  ```
 
 - Run `terraform init`, `terraform validate`, `terraform plan`, and `terraform apply` in a single command:
 
-🚨 **Remember that this will make modifications to your infrastructure, including possibly deleting and/or modifying pre-existing VMs!** 🚨
+  🚨 **Remember that this will make modifications to your infrastructure, including possibly deleting and/or modifying pre-existing VMs!** 🚨
 
-```console
-make
-```
+  ```console
+  make
+  ```
 
 > You can also run each command individually i.e. `make init` to execute specific commands.
+
+#### <ins>With Docker</ins>
+
+- Terraform Init:
+
+  ```console
+  make docker-init
+  ```
+
+- Terraform Plan:
+
+  ```console
+  make docker-plan
+  ```
+
+- Terraform Apply:
+
+  ```console
+  make docker-apply
+  ```
+
+- Terraform Destroy:
+
+  ```console
+  make docker-destroy
+  ```
 
 ## Expected Results
 

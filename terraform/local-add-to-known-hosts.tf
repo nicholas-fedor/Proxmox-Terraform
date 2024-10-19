@@ -14,6 +14,6 @@ resource "null_resource" "known_hosts" {
         ssh-keyscan -H ${host_ip} >> ~/.ssh/known_hosts
     %{endfor~}
     EOT
-    interpreter = ["/bin/bash", "-c"]
+    interpreter = ["/bin/sh", "-c"]
   }
 }
