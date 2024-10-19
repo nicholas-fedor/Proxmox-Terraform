@@ -59,7 +59,7 @@ There are numerous [official](https://pve.proxmox.com/wiki/Installation) and [th
 1. Download my `install-terraform.sh` Bash script:
 
    ```console
-   wget https://github.com/nicholas-fedor/Proxmox-Terraform/install-terraform.sh
+   wget https://github.com/nicholas-fedor/Proxmox-Terraform/blob/b79bf00f147d7b5046f763b1bef5d1d58313de3e/install-terraform.sh
    ```
 
 2. Add the execute permission:
