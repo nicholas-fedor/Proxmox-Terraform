@@ -13,11 +13,11 @@ variable "proxmox_api_credentials" {
 
 # Telmate Proxmox Provider Reference Documentation: https://registry.terraform.io/providers/Telmate/proxmox/latest/docs/resources/vm_qemu
 # vm-configuration.auto.tfvars
-variable "vm_id_start" {
-  description = "Start of VM ID range"
-  type        = number
-  default     = 100
-}
+# variable "vm_id_start" {
+#   description = "Start of VM ID range"
+#   type        = number
+#   default     = 100
+# }
 
 variable "proxmox_host" {
   description = "Proxmox host/node name"
@@ -45,19 +45,19 @@ variable "template_name" {
   nullable    = false
 }
 
-// Applying a 0 count 
-variable "vm_count" {
-  description = "Number of clones to create"
-  type        = number
-  default     = 1
-  nullable    = false
-}
+// Applying a 0 count
+# variable "vm_count" {
+#   description = "Number of clones to create"
+#   type        = number
+#   default     = 1
+#   nullable    = false
+# }
 
-variable "vm_name" {
-  description = "Standardized VM name applied to clones"
-  type        = string
-  nullable    = false
-}
+# variable "vm_name" {
+#   description = "Standardized VM name applied to clones"
+#   type        = string
+#   nullable    = false
+# }
 
 variable "vm_bios" {
   description = "VM BIOS type i.e. seabios or ovmf"
@@ -130,11 +130,11 @@ variable "vm_scsihw" {
   default     = "lsi"
 }
 
-variable "vm_tags" {
-  description = "VM Tags"
-  type        = string
-  nullable    = true
-}
+# variable "vm_tags" {
+#   description = "VM Tags"
+#   type        = string
+#   nullable    = true
+# }
 
 variable "vm_os_type" {
   description = "Provisioning method to use"
@@ -167,16 +167,16 @@ variable "cloud_init_user" {
   }
 }
 
-variable "vm_ipv4_address_prefix" {
-  description = "IPv4 address prefix, i.e. 192.168.1.11x"
-  type        = string
-}
+# variable "vm_ipv4_address_prefix" {
+#   description = "IPv4 address prefix, i.e. 192.168.1.11x"
+#   type        = string
+# }
 
-variable "vm_ipv4_address_cidr" {
-  description = "IPv4 address CIDR, i.e. /24, /16, etc"
-  type        = string
-  nullable    = true
-}
+# variable "vm_ipv4_address_cidr" {
+#   description = "IPv4 address CIDR, i.e. /24, /16, etc"
+#   type        = string
+#   nullable    = true
+# }
 
 variable "vm_ipv4_address_gateway" {
   description = "IPv4 gateway, i.e. 192.168.1.1"

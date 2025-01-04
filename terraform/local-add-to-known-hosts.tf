@@ -1,6 +1,6 @@
 locals {
   #   https://registry.terraform.io/providers/Telmate/proxmox/latest/docs/resources/vm_qemu#attribute-reference
-  ssh_hosts = proxmox_vm_qemu.ubuntu_server[*].default_ipv4_address
+  ssh_hosts = proxmox_vm_qemu.gitea[*].default_ipv4_address
 }
 
 # Add VMs to local machine's known hosts file
