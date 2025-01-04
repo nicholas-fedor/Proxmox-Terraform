@@ -1,0 +1,8 @@
+---
+creation_rules:
+  - path_regex: terraform/credentials\.auto\.tfvars\.json
+    encrypted_regex: ^proxmox_api_credentials$
+    key_groups:
+      - age:
+          # Add the public key from (./.sops/age.key) below
+          - "age1mn462kp0tnnccyvsvhe4tswp4jylxkl2cewx4t0p6f0mra6j7srq2e4gd7"

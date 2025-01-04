@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "signageos.signageos-vscode-sops",
+    "mitchdenny.ecdc",
+    "esbenp.prettier-vscode",
+    "davidanson.vscode-markdownlint",
+    "redhat.vscode-yaml",
+    "mikestead.dotenv",
+    "oderwat.indent-rainbow",
+    "editorconfig.editorconfig"
+  ]
+}

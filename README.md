@@ -11,6 +11,7 @@ Terraform playbook for automating the provisioning of Ubuntu Server Cloud-Init v
 - Terraform installed on your local machine
   > A "Dockerized" Terraform instance may be used instead.
 - An Ubuntu Server template available for Terraform to clone
+- SOPS and AGE installed
 
 #### Proxmox Installation
 
@@ -34,8 +35,8 @@ There are numerous [official](https://pve.proxmox.com/wiki/Installation) and [th
    Datacenter > Permissions > Add > User Permissions
    ```
 
-   > Path: `/`  
-   > User: `terraform`  
+   > Path: `/`
+   > User: `terraform`
    > Role: `Administrator`
 
 3. Create an API Token for the user:
@@ -44,8 +45,8 @@ There are numerous [official](https://pve.proxmox.com/wiki/Installation) and [th
    Datacenter > Permissions > API Tokens > Add
    ```
 
-   > User: `terraform@pam`  
-   > Token ID: `terraform`  
+   > User: `terraform@pam`
+   > Token ID: `terraform`
    > Privilege Separation: `disable`
 
    🚨 **Save the token before proceeding!** 🚨
@@ -100,22 +101,67 @@ There are numerous [official](https://pve.proxmox.com/wiki/Installation) and [th
 
 The [Proxmox wiki](https://pve.proxmox.com/wiki/Cloud-Init_Support) details the process of manually creating an Ubuntu Cloud-Init template.
 
+### SOPS Installation
+
+1. Download the SOPS binary:
+
+    ```console
+    curl -LO https://github.com/getsops/sops/releases/download/v3.9.3/sops-v3.9.3.linux.amd64
+    ```
+
+2. Move the SOPS binary to `/usr/local/bin/sops`:
+
+    ```console
+    sudo mv sops-v3.9.3.linux.amd64 /usr/local/bin/sops
+    ```
+
+3. Make the SOPS binary exacutable:
+
+    ```console
+    sudo chmod +x /usr/local/bin/sops
+    ```
+
+### Age Installation
+
+```console
+sudo apt update && sudo apt install -y age
+```
+
+### SOPS & AGE Configuration
+
+Generate an AGE `key.file`:
+
+```console
+age-keygen -o ./.sops/age.key
+```
+
+Update the `public key` referenced within the `.sops.yaml` file:
+
+The prior command will output the public key to standard output.
+The following will also do the same.
+
+```console
+age-keygen -y ./.sops/age.key
+```
+
+Copy and paste into the `./.sops.yaml` file.
+
 ### Terraform Configuration
 
-1. Copy the `credentials.auto.tfvars.sample` and `vm-configuration.auto.tfvars.sample` files:
+1. Copy the `credentials.sops.tfvars.json.template` and `vm-configuration.auto.tfvars.template` files:
 
    ```console
-   cp ./terraform/templates/proxmox.auto.tfvars.template ./terraform/proxmox.auto.tfvars
+   cp ./terraform/templates/credentials.sops.tfvars.json.template ./credentials.sops.tfvars.json
    cp ./terraform/templates/vm-configuration.auto.tfvars.template ./terraform/vm-configuration.auto.tfvars
    ```
 
-2. Update the `credentials.auto.tfvars` file with your configuration.
+2. Update the `credentials.sops.tfvars.json` file with your configuration.
 
    > There is an option to either manually specify a SSH key file or set its value within the configuration.
 
 3. Review the `main.tf` file for specific options regarding VM configuration.
 
-   > If using my [Proxmox Template Creator](), then you should not need to make any updates.
+   > If using my [Proxmox Template Creator](https://github.com/nicholas-fedor/Proxmox-Template-Creator), then you should not need to make any updates.
    > Future updates may provide greater resiliency to variances in configuration.
 
 ### Running Terraform
@@ -228,8 +274,11 @@ Bear in mind that this setup may become outdated in the future due to fluctuatio
 
 ## Additional Documentation
 
-- https://developer.hashicorp.com/terraform/docs
-- https://registry.terraform.io/providers/Telmate/proxmox/latest/docs
-- https://pve.proxmox.com/pve-docs/pve-admin-guide.html
-- https://pve.proxmox.com/pve-docs/index.html
-- https://pve.proxmox.com/wiki/Main_Page
+- <https://developer.hashicorp.com/terraform/docs>
+- <https://registry.terraform.io/providers/Telmate/proxmox/latest/docs>
+- <https://github.com/getsops/sops>
+- <https://github.com/signageos/vscode-sops>
+- <https://github.com/carlpett/terraform-provider-sops>
+- <https://pve.proxmox.com/pve-docs/pve-admin-guide.html>
+- <https://pve.proxmox.com/pve-docs/index.html>
+- <https://pve.proxmox.com/wiki/Main_Page>
