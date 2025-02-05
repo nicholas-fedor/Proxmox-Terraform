@@ -220,7 +220,7 @@ Copy and paste into the `./.sops.yaml` file.
 
 ## Expected Results
 
-Terraform will create a fully copy of the template.
+Terraform will create a full copy of the template.
 My VM configuration includes the following:
 
 VM Options
