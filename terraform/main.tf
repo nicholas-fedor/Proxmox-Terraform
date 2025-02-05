@@ -29,7 +29,7 @@ resource "proxmox_vm_qemu" "ubuntu_server" {
   # https://registry.terraform.io/providers/Telmate/proxmox/latest/docs/resources/vm_qemu#network-block
   network {
     model    = "virtio"
-    bridge   = "vmbr0"
+    bridge   = "vmbr1"
     tag      = -1
     firewall = false
   }
